@@ -1,4 +1,4 @@
-Project Name: CommerceX
+Project Name: CommerceX<br>
 Description:
 A fully functional e-commerce web application built with ASP.NET Core and MVC Razor Pages. The application allows users to browse products, add items to their cart, filter products by various categories, and place orders using Izipay for secure online payments. The platform provides a seamless shopping experience with a focus on usability and efficient performance.<br>
 
