@@ -1,0 +1,47 @@
+@model ProductListViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            @await Component.InvokeAsync("CategoriesList")
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                @foreach(var p in Model.Products)
+                {
+                <div class="col-md-4">
+                    <div class="card shadow-lg" style="width: 100%; background: #2b292985;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@p.Name</h5>
+                            <p class="card-text">@p.Description</p>
+                            <div class="d-flex justify-content-between">
+
+                                <p class="card-text">@p.Price TL</p>
+                                <form asp-page="/Cart" method="post">
+                                    <input type="hidden" asp-for="@p.Id" name="Id" />
+                                    <button type="submit" class="btn btn-outline-success btn-sm pull-right"
+                                        style="float:right;">Sepete
+                                        Ekle</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                @if(Model.Products.Count() == 0)
+                {
+                <p style="color: red;">Ürün bulunamadı!</p>
+                }
+
+                @if(Model.PageInfo.TotalPages >= 1)
+                {
+                <div page-model="@Model.PageInfo" page-action="Index" page-class="btn"
+                    page-class-link="btn-outline-dark" page-class-active="btn-dark text-white" class=" text-center m-2">
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

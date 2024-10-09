@@ -1,0 +1,17 @@
+@model IEnumerable<CategoryViewModel>
+
+
+    <div class="d-grid gap-2">
+        <a href="/products" class="mb-0 text-center text-decoration-none text-dark fs-4 fw-2">Kategoriler</a>
+        <hr class="m-0">
+
+        @foreach(var category in Model)
+        {
+        <a class="@(ViewBag.SelectedCategory == category.Url ? " btn btn-outline bg-dark text-white"
+            : "btn btn-outline-light" )" asp-controller="Home" asp-action="Index" asp-route-category="@category.Url">
+            @category.Name
+        </a>
+
+        }
+
+    </div>

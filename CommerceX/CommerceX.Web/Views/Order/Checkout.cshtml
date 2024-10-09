@@ -1,0 +1,81 @@
+@model OrderModel
+
+<h1 class="mb-3">Sipariş Detayı</h1>
+<hr>
+<div class="row">
+    <div class="col-md-7">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-controller="Order" asp-action="Checkout" method="post">
+            <div class="mb-7 mb-2">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control bg-dark text-light">
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <label asp-for="City"></label>
+                    <input asp-for="City" class="form-control bg-dark text-light">
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control bg-dark text-light">
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control bg-dark text-light">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="AdressLine"></label>
+                <textarea asp-for="AdressLine" class="form-control bg-dark text-light"></textarea>
+            </div>
+
+            <h4>Ödeme Bilgileri</h4>
+            <hr>
+            <div class="mb-7 mb-2">
+                <label asp-for="CartName"></label>
+                <input asp-for="CartName" class="form-control bg-dark text-light">
+            </div>
+            <div class="col-md-12">
+                <label asp-for="CartNumber"></label>
+                <input asp-for="CartNumber" class="form-control bg-dark text-light">
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <label asp-for="ExpirationMonth"></label>
+                    <input asp-for="ExpirationMonth" class="form-control bg-dark text-light">
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ExpirationYear"></label>
+                    <input asp-for="ExpirationYear" class="form-control bg-dark text-light">
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Cvc"></label>
+                    <input asp-for="Cvc" class="form-control bg-dark text-light">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Sipariş Tamamla</button>
+        </form>
+
+    </div>
+    <div class="col-md-4">
+        <h4>Sipariş Özeti</h4>
+        <ul class="list-group mb-3">
+            @foreach(var item in Model.Cart.Items)
+            {
+            <li class="list-group-item d-flex justify-content-between bg-dark text-light">
+                <div>
+                    <h6>@item.Product.Name</h6> X @item.Quantity
+                </div>
+                <span>@item.Product.Price.ToString("c")</span>
+            </li>
+            }
+            <li class="list-group-item d-flex justify-content-between bg-dark text-light">
+                <h6>Toplam:</h6>
+                <h6> @Model?.Cart?.CalculateTotal().ToString("c")</h6>
+            </li>
+        </ul>
+
+    </div>
+</div>

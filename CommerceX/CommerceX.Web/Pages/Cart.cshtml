@@ -1,0 +1,57 @@
+﻿@page
+@model CartModel
+
+<h3>Alışveriş sepeti</h3>
+@if(Model?.Cart?.Items.Count() == 0)
+{
+<tr>
+    <div class="alert alert-warning">Ürün Yok</div>
+</tr>
+}else{
+<table class="table table-bordered table-secondary ">
+    <thead class="table-dark">
+        <tr>
+            <th>Ürün</th>
+            <th>Fiyat</th>
+            <th>Adet</th>
+            <th>Toplam</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach(var item in Model?.Cart?.Items ?? Enumerable.Empty<CartItem>())
+            {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Product.Price</td>
+                <td>@item.Quantity</td>
+                <td>
+                    @((item.Quantity * item.Product.Price).ToString()) ₺
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="Remove">
+                        <input type="hidden" name="Id" value="@item.Product.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger">Sil</button>
+                    </form>
+                </td>
+            </tr>
+            }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Toplam Fiyat</td>
+
+            <td>
+                @Model?.Cart?.CalculateTotal() ₺
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+}
+<div class="d-flex justify-content-center">
+    <a href="/" class="btn btn-dark m-1">Anasayfaya Dön</a>
+    <a asp-controller="Order" asp-action="Checkout" class="btn btn-dark m-1">Siparişi Tamamla</a>
+</div>
